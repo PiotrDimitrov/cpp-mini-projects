@@ -6,7 +6,7 @@
 class bigNum {
 private:
     std::vector<int> digits;
-    //void carryOver();
+    void carryOver();
 public:
     bigNum();
     bigNum(std::string str);

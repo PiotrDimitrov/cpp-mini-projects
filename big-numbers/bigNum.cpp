@@ -26,6 +26,18 @@ bigNum& bigNum::operator=(const bigNum &other) {
     }
 }
 
+void bigNum::carryOver(){
+    for (int i = 0; i < digits.size() - 1; i++){
+        if (digits[i] > 9){
+            digits[i+1] += digits[i] / 10;
+            digits[i] = digits[i] % 10;
+        }
+    }
+    while (digits[digits.size() - 1] > 9){
+        digits.push_back(digits[digits.size() - 1] / 10);
+        digits[digits.size() - 2] = digits[digits.size() - 2] % 10;
+    }
+}
 
 void bigNum::print() {
     for (auto i : digits){
