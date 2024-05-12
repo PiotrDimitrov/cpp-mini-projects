@@ -1,0 +1,1 @@
+My collection of little projects made with C++
