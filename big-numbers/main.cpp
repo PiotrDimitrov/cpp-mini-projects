@@ -2,10 +2,8 @@
 #include "bigNum.h"
 
 int main() {
-    //while (true){
-        std::string str1;
-        std::cin >> str1;
-        bigNum x(str1);
-        std::cout << x.toStr();
-    //}
+        bigNum x("6391");
+        bigNum y("2030");
+        bigNum z = x * y;
+        z.print();
 }

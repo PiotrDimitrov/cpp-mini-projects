@@ -9,12 +9,14 @@ public:
     std::vector<int> digits;
     int operator [] (int index);
     int size() const;
+    void clear();
 public:
     bigNum();
     bigNum(std::string str);
     bigNum(const bigNum& other);
     bigNum& operator = (const bigNum& other);
     bigNum operator + (const bigNum num);
+    bigNum operator * (const bigNum num);
     bool operator == (const bigNum& other) const;
     bool operator != (const bigNum& other) const;
     bool operator > (const bigNum& other) const;

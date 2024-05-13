@@ -1,6 +1,8 @@
 #include "bigNum.h"
 
-bigNum::bigNum() = default;
+bigNum::bigNum(){
+    //digits.push_back(0);
+}
 
 bigNum::bigNum(std::string str) {
     digits.reserve(str.length());
@@ -106,6 +108,29 @@ bool bigNum::operator <= (const bigNum& other) const {
     return true;
 }
 
+bigNum bigNum::operator * (const bigNum num) {
+    bigNum result("0");
+    bigNum temp;
+    result.digits.reserve(this->size() + num.size());
+    int tens = 0;
+    for (int nm : num.digits) {
+        int remainder = 0;
+        for (int th : this->digits) {
+            temp.digits.push_back((nm * th + remainder) % 10);
+            remainder = (nm * th + remainder) / 10;
+        }
+        while (remainder > 0) {
+            temp.digits.push_back(remainder % 10);
+            remainder /= 10;
+        }
+        result = result + temp;
+        temp.clear();
+        tens++;
+        for (int i = 0; i < tens; i++) {temp.digits.push_back(0);}
+    }
+    return result;
+}
+
 std::string bigNum::toStr() {
     char symb;
     std::string result;
@@ -114,6 +139,11 @@ std::string bigNum::toStr() {
         result = symb + result;
     }
     return result;
+}
+
+void bigNum::clear() {
+    digits.clear();
+    //digits.push_back(0);
 }
 
 std::string bigNum::toStr(long long x) {
