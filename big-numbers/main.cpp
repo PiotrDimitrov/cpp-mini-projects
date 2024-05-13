@@ -2,8 +2,13 @@
 #include "bigNum.h"
 
 int main() {
-bigNum x("7162");
-bigNum y("9435");
-bigNum z = x + y;
-z.print();
+    while (true){
+        std::string str1, str2;
+        std::cin >> str1 >> str2;
+
+        bigNum x(str1);
+        bigNum y(str2);
+        bigNum z = x + y;
+        z.print();
+    }
 }

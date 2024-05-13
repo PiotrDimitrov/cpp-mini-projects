@@ -4,7 +4,7 @@ bigNum::bigNum() = default;
 
 bigNum::bigNum(std::string str) {
     digits.reserve(str.length());
-    for(int i = 0; i < str.length(); i++){
+    for(int i = str.length()-1; i >= 0; i--){
         digits.push_back(str[i] - '0');
     }
 }
@@ -22,8 +22,8 @@ bigNum& bigNum::operator=(const bigNum& other) {
 }
 
 void bigNum::print() {
-    for (auto i : digits){
-        std::cout << i;
+    for (int i = this->size()-1; i >= 0; i--){
+        std::cout << digits[i];
     }
     std::cout << std::endl;
 }
@@ -45,11 +45,11 @@ bigNum bigNum::operator+(bigNum num) {
     result.digits.reserve(std::max(this->digits.size(), num.digits.size()) + 1);
     int remainder = 0; int i;
     for (i = 0; i < this->size() || i < num.size(); i++){
-        result.digits[i] = ((*this)[i] + num[i] + remainder) % 10;
+        result.digits.push_back(((*this)[i] + num[i] + remainder) % 10);
         remainder = ((*this)[i] + num[i] + remainder) / 10;
     }
     if (remainder > 0) {
-        result.digits[i+1] = remainder;
+        result.digits.push_back(remainder);
     }
     return result;
 }
