@@ -19,8 +19,9 @@ public:
     bool operator != (const bigNum& other) const;
     bool operator > (const bigNum& other) const;
     bool operator < (const bigNum& other) const;
+    bool operator <= (const bigNum& other) const;
+    bool operator >= (const bigNum& other) const;
     //~bigNum();
-    //std::string toStr();
     std::string toStr();
     static std::string toStr(int x);
     static std::string toStr(long long x);
