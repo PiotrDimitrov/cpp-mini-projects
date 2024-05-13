@@ -10,6 +10,7 @@ public:
     int operator [] (int index);
     int size() const;
     void clear();
+    bool positive;
 public:
     bigNum();
     bigNum(std::string str);

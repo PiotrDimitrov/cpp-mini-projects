@@ -1,29 +1,35 @@
 #include "bigNum.h"
 
 bigNum::bigNum(){
+    positive = true;
     //digits.push_back(0);
 }
 
 bigNum::bigNum(std::string str) {
     digits.reserve(str.length());
+    positive = true;
     for(int i = str.length()-1; i >= 0; i--){
+        if (str[i] == '-') { positive = false; continue;}
         digits.push_back(str[i] - '0');
     }
 }
 
 bigNum::bigNum(const bigNum& other){
     this->digits = other.digits;
+    this->positive = other.positive;
 }
 
 
 bigNum& bigNum::operator=(const bigNum& other) {
     if (this != &other) {
         this->digits = other.digits;
+        this->positive = other.positive;
     }
     return *this;
 }
 
 void bigNum::print() {
+    if (!positive) {std::cout << '-';}
     for (int i = this->size()-1; i >= 0; i--){
         std::cout << digits[i];
     }
@@ -55,6 +61,8 @@ bigNum bigNum::operator+(bigNum num) {
     }
     return result;
 }
+
+
 
 bool bigNum::operator == (const bigNum& other) const {
     return digits == other.digits;
