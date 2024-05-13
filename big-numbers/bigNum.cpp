@@ -28,7 +28,7 @@ void bigNum::print() {
     std::cout << std::endl;
 }
 
-int bigNum::size() {
+int bigNum::size() const {
     return digits.size();
 }
 
@@ -53,3 +53,12 @@ bigNum bigNum::operator+(bigNum num) {
     }
     return result;
 }
+
+bool bigNum::operator == (const bigNum& other) const {
+    return digits == other.digits;
+}
+
+bool bigNum::operator != (const bigNum& other) const {
+    return !(digits == other.digits);
+}
+
