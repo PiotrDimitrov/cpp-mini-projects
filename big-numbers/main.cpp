@@ -2,6 +2,8 @@
 #include "bigNum.h"
 
 int main() {
-bigNum x("716234");
-x.print();
+bigNum x("7162");
+bigNum y("9435");
+bigNum z = x + y;
+z.print();
 }
