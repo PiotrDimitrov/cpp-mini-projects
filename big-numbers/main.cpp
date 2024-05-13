@@ -8,7 +8,7 @@ int main() {
 
         bigNum x(str1);
         bigNum y(str2);
-        bigNum z = x + y;
-        z.print();
+        std::cout << (x < y) << std::endl;
+        std::cout << (x == y) << std::endl;
     }
 }

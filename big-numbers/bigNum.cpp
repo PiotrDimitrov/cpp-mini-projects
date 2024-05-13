@@ -62,3 +62,24 @@ bool bigNum::operator != (const bigNum& other) const {
     return !(digits == other.digits);
 }
 
+bool bigNum::operator < (const bigNum& other) const {
+    if (other == (*this)) {return false;}
+    if (other.size() > this->size()) {return true;}
+    if (other.size() < this->size()) {return false;}
+    for (int i = this->size() - 1; i >= 0; i++){
+        if (other.digits[i] > this->digits[i]) {return true;}
+        if (other.digits[i] < this->digits[i]) {return false;}
+    }
+    return false;
+}
+
+bool bigNum::operator > (const bigNum& other) const {
+    if (other == (*this)) {return false;}
+    if (other.size() > this->size()) {return false;}
+    if (other.size() < this->size()) {return true;}
+    for (int i = this->size() - 1; i >= 0; i++){
+        if (other.digits[i] > this->digits[i]) {return false;}
+        if (other.digits[i] < this->digits[i]) {return true;}
+    }
+    return false;
+}
