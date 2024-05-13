@@ -23,10 +23,8 @@ public:
     bool operator >= (const bigNum& other) const;
     //~bigNum();
     std::string toStr();
-    static std::string toStr(int x);
     static std::string toStr(long long x);
     void print();
-    int size1();
 };
 
 #endif //BIG_NUMBERS_BIGNUM_H

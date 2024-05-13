@@ -106,3 +106,21 @@ bool bigNum::operator <= (const bigNum& other) const {
     return true;
 }
 
+std::string bigNum::toStr() {
+    char symb;
+    std::string result;
+    for (int i = 0; i < this->size(); i++){
+        symb = char ('0' + digits[i]);
+        result = symb + result;
+    }
+    return result;
+}
+
+std::string bigNum::toStr(long long x) {
+    std::string result;
+    while (x > 0){
+        result = char('0' + (x % 10)) + result;
+        x /= 10;
+    }
+    return result;
+}
