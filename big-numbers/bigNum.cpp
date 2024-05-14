@@ -12,6 +12,7 @@ bigNum::bigNum(std::string str) {
         if (str[i] == '-') { positive = false; continue;}
         digits.push_back(str[i] - '0');
     }
+    zeros();
 }
 
 bigNum::bigNum(const bigNum& other){
@@ -70,6 +71,7 @@ bigNum bigNum::operator+(bigNum num) {
         if (remainder > 0) {
             result.digits.push_back(remainder);
         }
+        result.zeros();
         return result;
     } else {
         if (!this->positive && num.positive){
@@ -89,17 +91,7 @@ bigNum bigNum::operator+(bigNum num) {
 
 bigNum bigNum::operator+(std::string str) {
     bigNum num(str);
-    bigNum result;
-    result.digits.reserve(std::max(this->digits.size(), num.digits.size()) + 1);
-    int remainder = 0; int i;
-    for (i = 0; i < this->size() || i < num.size(); i++){
-        result.digits.push_back(((*this)[i] + num[i] + remainder) % 10);
-        remainder = ((*this)[i] + num[i] + remainder) / 10;
-    }
-    if (remainder > 0) {
-        result.digits.push_back(remainder);
-    }
-    return result;
+    return (*this) + num;
 }
 
 bool bigNum::operator == (const bigNum& other) const {
@@ -205,7 +197,13 @@ bigNum bigNum::operator * (const bigNum num) {
         tens++;
         for (int i = 0; i < tens; i++) {temp.digits.push_back(0);}
     }
+    result.zeros();
     return result;
+}
+
+bigNum bigNum::operator*(std::string str) {
+    bigNum num(str);
+    return (*this) * num;
 }
 
 bigNum bigNum::operator-(const bigNum num) {
@@ -220,12 +218,14 @@ bigNum bigNum::operator-(const bigNum num) {
         num1.positive = num2.positive = true;
         result = num1 + num2;
         result.positive = false;
+        result.zeros();
         return result;
     }
     if (!this->positive && !num.positive){
         num1 = *this; num2 = num;
         num1.positive = num2.positive = true;
         result = num2 - num1;
+        result.zeros();
         return result;
     }
     if (this->positive && num.positive) {
@@ -237,11 +237,35 @@ bigNum bigNum::operator-(const bigNum num) {
             else {digit = num1[i] + 10 - num2[i]; num1.digits[i+1] -= 1;}
             result.digits.push_back(digit);
         }
+        result.zeros();
         return result;
     }
 }
 
-std::string bigNum::toStr() {
+bigNum bigNum::operator-(std::string str) {
+    bigNum num(str);
+    return (*this) - num;
+}
+
+bigNum bigNum::operator/(const bigNum num) {
+    bigNum counter("0");
+    counter.positive = (this->positive == num.positive);
+    bigNum div = *this;
+    while (div.positive) {
+        div = div - num;
+        counter = counter + "1";
+    }
+    counter = counter - "1";
+    counter.zeros();
+    return counter;
+}
+
+bigNum bigNum::operator/(std::string str) {
+    bigNum num(str);
+    return *this / num;
+}
+
+std::string bigNum::toStr() const{
     char symb;
     std::string result;
     for (int i = 0; i < this->size(); i++){
@@ -263,4 +287,11 @@ std::string bigNum::toStr(long long x) {
         x /= 10;
     }
     return result;
+}
+
+void bigNum::zeros() {
+    for (int i = this->size() - 1; i > 0; i--){
+        if (this->digits[i] == 0) {this->digits.pop_back();}
+        else {break;}
+    }
 }

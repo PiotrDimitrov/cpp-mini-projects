@@ -2,9 +2,12 @@
 #include "bigNum.h"
 
 int main() {
-    bigNum x("-6143");
-    bigNum y("-123");
-    bigNum z = x - y;
-    //std::cout << z.toStr();
-    z.print();
+    while (true) {
+        bigNum x("609");
+        bigNum y("10");
+        bigNum z = x / y;
+        //std::cout << z.toStr();
+        z.print();
+    }
+
 }
