@@ -59,16 +59,32 @@ int bigNum::operator[](int index) {
 
 bigNum bigNum::operator+(bigNum num) {
     bigNum result;
-    result.digits.reserve(std::max(this->digits.size(), num.digits.size()) + 1);
-    int remainder = 0; int i;
-    for (i = 0; i < this->size() || i < num.size(); i++){
-        result.digits.push_back(((*this)[i] + num[i] + remainder) % 10);
-        remainder = ((*this)[i] + num[i] + remainder) / 10;
+    if (this->positive == num.positive) {
+        result.positive = this->positive;
+        result.digits.reserve(std::max(this->digits.size(), num.digits.size()) + 1);
+        int remainder = 0; int i;
+        for (i = 0; i < this->size() || i < num.size(); i++){
+            result.digits.push_back(((*this)[i] + num[i] + remainder) % 10);
+            remainder = ((*this)[i] + num[i] + remainder) / 10;
+        }
+        if (remainder > 0) {
+            result.digits.push_back(remainder);
+        }
+        return result;
+    } else {
+        if (!this->positive && num.positive){
+            bigNum n1, n2;
+            n1 = *this; n2 = num;
+            n1.positive = n2.positive = true;
+            return n2 - n1;
+        }
+        if (this->positive && !num.positive){
+            bigNum n1, n2;
+            n1 = *this; n2 = num;
+            n1.positive = n2.positive = true;
+            return n1 - n2;
+        }
     }
-    if (remainder > 0) {
-        result.digits.push_back(remainder);
-    }
-    return result;
 }
 
 bigNum bigNum::operator+(std::string str) {
@@ -171,6 +187,7 @@ bool bigNum::operator<=(std::string str) const {
 bigNum bigNum::operator * (const bigNum num) {
     bigNum result("0");
     bigNum temp;
+    if (this->positive != num.positive) {result.positive = false;}
     result.digits.reserve(this->size() + num.size());
     int tens = 0;
     for (int nm : num.digits) {
@@ -189,6 +206,39 @@ bigNum bigNum::operator * (const bigNum num) {
         for (int i = 0; i < tens; i++) {temp.digits.push_back(0);}
     }
     return result;
+}
+
+bigNum bigNum::operator-(const bigNum num) {
+    bigNum num1, num2, result; //result = num1 - num2
+    if (this->positive && !num.positive) {
+        num1 = *this; num2 = num;
+        num1.positive = num2.positive = true;
+        return num1 + num2;
+    }
+    if (!this->positive && num.positive) {
+        num1 = *this; num2 = num;
+        num1.positive = num2.positive = true;
+        result = num1 + num2;
+        result.positive = false;
+        return result;
+    }
+    if (!this->positive && !num.positive){
+        num1 = *this; num2 = num;
+        num1.positive = num2.positive = true;
+        result = num2 - num1;
+        return result;
+    }
+    if (this->positive && num.positive) {
+        int digit;
+        if (*this >= num) {num1 = (*this); num2 = num; result.positive = true;}
+        else {num1 = num; num2 = (*this); result.positive = false;}
+        for (int i = 0; i < num1.size(); i++) {
+            if (num1[i] >= num2[i]) {digit = num1[i] - num2[i];}
+            else {digit = num1[i] + 10 - num2[i]; num1.digits[i+1] -= 1;}
+            result.digits.push_back(digit);
+        }
+        return result;
+    }
 }
 
 std::string bigNum::toStr() {
