@@ -2,9 +2,9 @@
 #include "bigNum.h"
 
 int main() {
-                    //18446744073709551615
-    bigNum x("");
-    bigNum y("0");
-    bigNum z = x * y;
-    std::cout << z.toStr();
+    bigNum x("61943");
+    bigNum y("59129");
+    bigNum z = x - y;
+    //std::cout << z.toStr();
+    z.print();
 }
