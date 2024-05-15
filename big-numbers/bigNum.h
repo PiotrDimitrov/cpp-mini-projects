@@ -5,7 +5,6 @@
 
 class bigNum {
 private:
-public:
     std::vector<int> digits;
     int operator [] (int index);
     int size() const;
