@@ -15,29 +15,40 @@ public:
     bigNum();
     bigNum(std::string str);
     bigNum(const bigNum& other);
+
     bigNum& operator = (const bigNum& other);
-    bigNum operator + (const bigNum num);
-    bigNum operator * (const bigNum num);
-    bigNum operator - (const bigNum num);
-    bigNum operator / (const bigNum num);
-    bool operator == (const bigNum& other) const;
-    bool operator != (const bigNum& other) const;
-    bool operator > (const bigNum& other) const;
-    bool operator < (const bigNum& other) const;
-    bool operator <= (const bigNum& other) const;
-    bool operator >= (const bigNum& other) const;
     bigNum& operator = (std::string str);
+
+    bigNum operator + (const bigNum num);
     bigNum operator + (std::string str);
+
+    bigNum operator * (const bigNum num);
     bigNum operator * (std::string str);
+
+    bigNum operator - (const bigNum num);
     bigNum operator - (std::string str);
+
+    bigNum operator / (const bigNum num);
     bigNum operator / (std::string str);
+
+    bool operator == (const bigNum& other) const;
     bool operator == (std::string str) const;
+
+    bool operator != (const bigNum& other) const;
     bool operator != (std::string str) const;
+
+    bool operator > (const bigNum& other) const;
     bool operator > (std::string str) const;
+
+    bool operator < (const bigNum& other) const;
     bool operator < (std::string str) const;
+
+    bool operator <= (const bigNum& other) const;
     bool operator <= (std::string str) const;
+
+    bool operator >= (const bigNum& other) const;
     bool operator >= (std::string str) const;
-    //~bigNum();
+
     std::string toStr() const;
     static std::string toStr(long long x);
     void print();

@@ -20,7 +20,6 @@ bigNum::bigNum(const bigNum& other){
     this->positive = other.positive;
 }
 
-
 bigNum& bigNum::operator=(const bigNum& other) {
     if (this != &other) {
         this->digits = other.digits;

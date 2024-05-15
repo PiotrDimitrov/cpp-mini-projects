@@ -4,7 +4,7 @@
 int main() {
     bigNum result;
     result = "1";
-    for (bigNum i("1"); i <= "100"; i = i + "1"){
+    for (bigNum i("1"); i <= "200"; i = i + "1"){
         result = result * i;
     }
     result.print();
