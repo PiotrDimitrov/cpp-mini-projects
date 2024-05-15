@@ -20,6 +20,16 @@ bigNum::bigNum(const bigNum& other){
     this->positive = other.positive;
 }
 
+bigNum::bigNum(int i) {
+    if (i < 0) {i *= -1; positive = false;}
+    else {positive = true;}
+    if (i == 0) {digits.push_back(0);}
+    while (i > 0){
+        digits.push_back(i % 10);
+        i /= 10;
+    }
+}
+
 bigNum& bigNum::operator=(const bigNum& other) {
     if (this != &other) {
         this->digits = other.digits;
@@ -30,6 +40,15 @@ bigNum& bigNum::operator=(const bigNum& other) {
 
 bigNum& bigNum::operator=(std::string str) {
     bigNum other(str);
+    if (this != &other) {
+        this->digits = other.digits;
+        this->positive = other.positive;
+    }
+    return *this;
+}
+
+bigNum& bigNum::operator=(int i) {
+    bigNum other(i);
     if (this != &other) {
         this->digits = other.digits;
         this->positive = other.positive;
@@ -93,6 +112,11 @@ bigNum bigNum::operator+(std::string str) {
     return (*this) + num;
 }
 
+bigNum bigNum::operator+(int i) {
+    bigNum num(i);
+    return (*this) + num;
+}
+
 bool bigNum::operator == (const bigNum& other) const {
     return (digits == other.digits) && (positive == other.positive);
 }
@@ -102,12 +126,22 @@ bool bigNum::operator==(std::string str) const {
     return *this == other;
 }
 
+bool bigNum::operator==(int i) const {
+    bigNum other(i);
+    return *this == other;
+}
+
 bool bigNum::operator != (const bigNum& other) const {
     return digits != other.digits || positive != other.positive;
 }
 
 bool bigNum::operator!=(std::string str) const {
     bigNum other(str);
+    return *this != other;
+}
+
+bool bigNum::operator!=(int i) const {
+    bigNum other(i);
     return *this != other;
 }
 
@@ -134,12 +168,22 @@ bool bigNum::operator>(std::string str) const {
     return *this > other;
 }
 
+bool bigNum::operator>(int i) const {
+    bigNum other(i);
+    return *this > other;
+}
+
 bool bigNum::operator<(const bigNum& other) const {
     return other > *this;
 }
 
 bool bigNum::operator<(std::string str) const {
     bigNum other(str);
+    return *this < other;
+}
+
+bool bigNum::operator<(int i) const {
+    bigNum other(i);
     return *this < other;
 }
 
@@ -152,12 +196,22 @@ bool bigNum::operator>=(std::string str) const {
     return *this >= other;
 }
 
+bool bigNum::operator>=(int i) const {
+    bigNum other(i);
+    return *this >= other;
+}
+
 bool bigNum::operator <= (const bigNum& other) const {
     return *this < other || *this == other;
 }
 
 bool bigNum::operator<=(std::string str) const {
     bigNum other(str);
+    return *this <= other;
+}
+
+bool bigNum::operator<=(int i) const {
+    bigNum other(i);
     return *this <= other;
 }
 
@@ -188,6 +242,11 @@ bigNum bigNum::operator * (const bigNum num) {
 
 bigNum bigNum::operator*(std::string str) {
     bigNum num(str);
+    return (*this) * num;
+}
+
+bigNum bigNum::operator*(int i) {
+    bigNum num(i);
     return (*this) * num;
 }
 
@@ -232,6 +291,11 @@ bigNum bigNum::operator-(std::string str) {
     return (*this) - num;
 }
 
+bigNum bigNum::operator-(int i) {
+    bigNum num(i);
+    return (*this) - num;
+}
+
 bigNum bigNum::operator/(const bigNum num) {
     bigNum counter("0");
     counter.positive = (this->positive == num.positive);
@@ -247,6 +311,11 @@ bigNum bigNum::operator/(const bigNum num) {
 
 bigNum bigNum::operator/(std::string str) {
     bigNum num(str);
+    return *this / num;
+}
+
+bigNum bigNum::operator/(int i) {
+    bigNum num(i);
     return *this / num;
 }
 

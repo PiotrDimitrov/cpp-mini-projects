@@ -15,40 +15,40 @@ public:
     bigNum();
     bigNum(std::string str);
     bigNum(const bigNum& other);
-
+    bigNum(int i);
     bigNum& operator = (const bigNum& other);
     bigNum& operator = (std::string str);
-
+    bigNum& operator = (int i);
     bigNum operator + (const bigNum num);
     bigNum operator + (std::string str);
-
+    bigNum operator + (int i);
     bigNum operator * (const bigNum num);
     bigNum operator * (std::string str);
-
+    bigNum operator * (int i);
     bigNum operator - (const bigNum num);
     bigNum operator - (std::string str);
-
+    bigNum operator - (int i);
     bigNum operator / (const bigNum num);
     bigNum operator / (std::string str);
-
+    bigNum operator / (int i);
     bool operator == (const bigNum& other) const;
     bool operator == (std::string str) const;
-
+    bool operator == (int i) const;
     bool operator != (const bigNum& other) const;
     bool operator != (std::string str) const;
-
+    bool operator != (int i) const;
     bool operator > (const bigNum& other) const;
     bool operator > (std::string str) const;
-
+    bool operator > (int i) const;
     bool operator < (const bigNum& other) const;
     bool operator < (std::string str) const;
-
+    bool operator < (int i) const;
     bool operator <= (const bigNum& other) const;
     bool operator <= (std::string str) const;
-
+    bool operator <= (int i) const;
     bool operator >= (const bigNum& other) const;
     bool operator >= (std::string str) const;
-
+    bool operator >= (int i) const;
     std::string toStr() const;
     static std::string toStr(long long x);
     void print();
