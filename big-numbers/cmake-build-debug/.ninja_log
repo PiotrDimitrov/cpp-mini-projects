@@ -56,3 +56,6 @@
 773	935	7374908682172168	big_numbers.exe	9a770f34ae9f5778
 4	595	7374908894195239	CMakeFiles/big_numbers.dir/main.cpp.obj	776dd9f205bb01f4
 595	751	7374908895741085	big_numbers.exe	9a770f34ae9f5778
+0	707	7374931539341927	CMakeFiles/big_numbers.dir/main.cpp.obj	776dd9f205bb01f4
+8	898	7374931541236857	CMakeFiles/big_numbers.dir/bigNum.cpp.obj	b040b534413db98e
+898	1128	7374931543500789	big_numbers.exe	9a770f34ae9f5778

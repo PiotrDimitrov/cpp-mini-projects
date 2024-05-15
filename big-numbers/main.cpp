@@ -3,10 +3,10 @@
 
 int main() {
     while (true){
-        int i;
-        std::cin >> i;
+        int i, j;
+        std::cin >> i >> j;
         bigNum n(i);
-        std::cout << n.toStr();
+        bigNum m(j);
+        std::cout << (n / m).toStr();
     }
-
 }

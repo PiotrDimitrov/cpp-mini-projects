@@ -299,9 +299,11 @@ bigNum bigNum::operator-(int i) {
 bigNum bigNum::operator/(const bigNum num) {
     bigNum counter("0");
     counter.positive = (this->positive == num.positive);
-    bigNum div = *this;
-    while (div.positive) {
-        div = div - num;
+    bigNum div1 = *this;
+    bigNum div2 = num;
+    div1.positive = div2.positive = true;
+    while (div1.positive) {
+        div1 = div1 - div2;
         counter = counter + "1";
     }
     counter = counter - "1";
@@ -326,7 +328,7 @@ std::string bigNum::toStr() const{
         symb = char ('0' + digits[i]);
         result = symb + result;
     }
-    return result;
+    if (positive) {return result;}
 }
 
 void bigNum::clear() {
