@@ -218,7 +218,6 @@ bool bigNum::operator<=(int i) const {
 bigNum bigNum::operator * (const bigNum num) {
     bigNum result("0");
     bigNum temp;
-    if (this->positive != num.positive) {result.positive = false;}
     result.digits.reserve(this->size() + num.size());
     int tens = 0;
     for (int nm : num.digits) {
@@ -237,6 +236,7 @@ bigNum bigNum::operator * (const bigNum num) {
         for (int i = 0; i < tens; i++) {temp.digits.push_back(0);}
     }
     result.zeros();
+    result.positive = (this->positive == num.positive);
     return result;
 }
 
@@ -298,7 +298,6 @@ bigNum bigNum::operator-(int i) {
 
 bigNum bigNum::operator/(const bigNum num) {
     bigNum counter("0");
-    counter.positive = (this->positive == num.positive);
     bigNum div1 = *this;
     bigNum div2 = num;
     div1.positive = div2.positive = true;
@@ -308,6 +307,7 @@ bigNum bigNum::operator/(const bigNum num) {
     }
     counter = counter - "1";
     counter.zeros();
+    counter.positive = (this->positive == num.positive);
     return counter;
 }
 
@@ -329,6 +329,7 @@ std::string bigNum::toStr() const{
         result = symb + result;
     }
     if (positive) {return result;}
+    else {return '-' + result;}
 }
 
 void bigNum::clear() {
