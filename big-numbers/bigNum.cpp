@@ -326,7 +326,8 @@ std::string bigNum::toStr() const{
         symb = char ('0' + digits[i]);
         result = symb + result;
     }
-    return result;
+    if (positive) {return result;}
+    else {return '-' + result;}
 }
 
 void bigNum::clear() {
