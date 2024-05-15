@@ -1,6 +1,8 @@
 #include <iostream>
+#include "calculator.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+    std::string str = " a/b+c def - gH 12  3 4  !% ";
+    calculator::refactor(str);
+    std::cout << str;
 }
