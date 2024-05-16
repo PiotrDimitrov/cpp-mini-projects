@@ -51,7 +51,7 @@ int calculator::toInt(std::string str) {
     int result = 0;
     bool flag = false;
     for (int i = str.length() - 1; i >= 0; i--){
-        if (str[i] == '-') {flag = true; continue;}
+        if (str[i] == '_') {flag = true; continue;}
         result += int(str[i] - '0') * pow (10, str.length() - 1 - i);
     }
     if (flag) {result *= -1;}
@@ -168,17 +168,25 @@ afterOper calculator::operation(int signIndex, const std::string str) {
     std::string rightNum = "";
     std::string leftNum = "";
     int index = signIndex + 1;
-    while (int(str[index] - '0') >= 0 && int(str[index] - '0') <= 9){
-        rightNum = rightNum + str[index];
-        index++;
-        if (index >= str.length()) {break;}
+    while ((int(str[index] - '0') >= 0 && int(str[index] - '0') <= 9)|| str[index] == '_' ){
+        if (str[index] == '_')
+        {
+            rightNum = '_' + rightNum;
+            index++;
+            if (index >= str.length()) {break;}
+        } else {
+            rightNum = rightNum + str[index];
+            index++;
+            if (index >= str.length()) {break;}
+        }
     }
     res.second = index - 1;
     index = signIndex - 1;
-    while (int(str[index] - '0') >= 0 && int(str[index] - '0') <= 9){
-        leftNum = str[index] + leftNum;
-        index--;
-        if (index < 0) {break;}
+    while ((int(str[index] - '0') >= 0 && int(str[index] - '0') <= 9) || str[index] == '_'){
+            leftNum = str[index] + leftNum;
+            index--;
+            if (index < 0) {break;}
+
     }
     res.first = index + 1;
     int left = toInt(leftNum); int right = toInt(rightNum);
@@ -206,16 +214,18 @@ afterOper calculator::operation(int signIndex, const std::string str) {
 }
 
 std::string calculator::toStr(int num){
-    std::string result = "";
-    if (num < 0) {result += '-'; num *= -1;}
+    std::string result = ""; bool neg = false;
+    if (num < 0) {neg = true; num *= -1;}
     while (num > 0) {
         result = char(num%10 + '0') + result;
         num /= 10;
     }
+    if (neg) {result = '_' + result;}
     return result;
 }
 
 int calculator::eval(std::string statement) {
+    spaces(statement); if (statement[0] == '-') {statement[0] = '_';}
     while (true) {
         stringSlice ss = brackets(statement);
         if (ss.first == -1 || ss.second == -1) {break;}
