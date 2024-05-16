@@ -49,9 +49,12 @@ void calculator::refactor(std::string& statement) {
 
 int calculator::toInt(std::string str) {
     int result = 0;
+    bool flag = false;
     for (int i = str.length() - 1; i >= 0; i--){
+        if (str[i] == '-') {flag = true; continue;}
         result += int(str[i] - '0') * pow (10, str.length() - 1 - i);
     }
+    if (flag) {result *= -1;}
     return result;
 }
 
@@ -65,6 +68,10 @@ std::string calculator::strSlice(int index1, int index2) {
         result = result + statement[i];
     }
     return result;
+}
+
+std::string calculator::insert(std::string ins, std::string& str, int first, int second) {
+    return strSlice(str, 0, first-1) + ins + strSlice(str, second+1, str.length()-1);
 }
 
 std::string calculator::strSlice(const std::string statement, int index1, int index2) {
@@ -196,4 +203,70 @@ afterOper calculator::operation(int signIndex, const std::string str) {
             break;
     }
     return res;
+}
+
+std::string calculator::toStr(int num){
+    std::string result = "";
+    if (num < 0) {result += '-'; num *= -1;}
+    while (num > 0) {
+        result = char(num%10 + '0') + result;
+        num /= 10;
+    }
+    return result;
+}
+
+int calculator::eval(std::string statement) {
+    while (true) {
+        stringSlice ss = brackets(statement);
+        if (ss.first == -1 || ss.second == -1) {break;}
+        statement = insert(toStr(eval(ss.str)), statement, ss.first, ss.second);
+    }
+    //here we are confident that statement doesn't contain brackets
+    //check for power ^ operator
+    bool powerFlag = true;
+    while (powerFlag) {
+        powerFlag = false; int index = 0;
+        for (int i = 0; i < statement.length(); ++i){
+            if (statement[i] == '^') {powerFlag = true; index = i; break;}
+        }
+        if (powerFlag) {
+            afterOper ao = operation(index, statement);
+            statement = insert(toStr(ao.result), statement, ao.first, ao.second);
+        }
+    }
+
+    //check for * or / operator
+    bool multDivFlag = true;
+    while (multDivFlag) {
+        multDivFlag = false; int index = 0;
+        for (int i  = 0; i < statement.length(); ++i) {
+            if (statement[i] == '*' || statement[i] == '/') {
+                multDivFlag = true;
+                index = i;
+                break;
+            }
+        }
+        if (multDivFlag) {
+            afterOper ao = operation(index, statement);
+            statement = insert(toStr(ao.result), statement, ao.first, ao.second);
+        }
+    }
+
+    //check for + or - operator
+    bool sumFlag = true;
+    while (sumFlag) {
+        sumFlag = false; int index = 0;
+        for (int i  = 0; i < statement.length(); ++i) {
+            if (statement[i] == '+' || statement[i] == '-') {
+                sumFlag = true;
+                index = i;
+                break;
+            }
+        }
+        if (sumFlag) {
+            afterOper ao = operation(index, statement);
+            statement = insert(toStr(ao.result), statement, ao.first, ao.second);
+        }
+    }
+    return toInt(statement);
 }
