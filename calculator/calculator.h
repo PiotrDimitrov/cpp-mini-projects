@@ -9,10 +9,16 @@ struct stringSlice {
     std::string str;
 };
 
+struct afterOper {
+    int first;
+    int second;
+    int result;
+};
+
 class calculator {
 public:
-    static float eval(std::string);
-    float eval();
+    static int eval(std::string);
+    int eval();
     calculator(std::string);
 private:
 public:
@@ -30,7 +36,7 @@ public:
     static std::string brStat(std::string str);
     static stringSlice brackets(std::string str);
     static std::string noBrStat(std::string str);
-
+    static afterOper operation(int signIndex, const std::string str);
 };
 
 

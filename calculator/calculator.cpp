@@ -22,7 +22,7 @@ void calculator::spaces(std::string& statement) {
 }
 
 void calculator::refactor() {
-    std::string allowed = "1234567890-+/^:*()%";
+    std::string allowed = "1234567890-+/^*()%";
     std::string temp;
     for (char st : statement) {
         bool flag = false;
@@ -35,7 +35,7 @@ void calculator::refactor() {
 }
 
 void calculator::refactor(std::string& statement) {
-    std::string allowed = "1234567890-+/^:*()%";
+    std::string allowed = "1234567890-+/^*()%";
     std::string temp;
     for (char st : statement) {
         bool flag = false;
@@ -154,4 +154,46 @@ stringSlice calculator::brackets(std::string str) {
     result.second = second;
     result.str = calculator::strSlice(str, result.first+1, result.second-1);
     return result;
+}
+
+afterOper calculator::operation(int signIndex, const std::string str) {
+    afterOper res;
+    std::string rightNum = "";
+    std::string leftNum = "";
+    int index = signIndex + 1;
+    while (int(str[index] - '0') >= 0 && int(str[index] - '0') <= 9){
+        rightNum = rightNum + str[index];
+        index++;
+        if (index >= str.length()) {break;}
+    }
+    res.second = index - 1;
+    index = signIndex - 1;
+    while (int(str[index] - '0') >= 0 && int(str[index] - '0') <= 9){
+        leftNum = str[index] + leftNum;
+        index--;
+        if (index < 0) {break;}
+    }
+    res.first = index + 1;
+    int left = toInt(leftNum); int right = toInt(rightNum);
+    switch (str[signIndex]) {
+        case '-':
+            res.result = left - right;
+            break;
+        case '*':
+            res.result = left * right;
+            break;
+        case '/':
+            res.result = left / right;
+            break;
+        case '^':
+            res.result = pow(left, right);
+            break;
+        case '+':
+            res.result = left + right;
+            break;
+        default:
+            res.result = 0;
+            break;
+    }
+    return res;
 }
