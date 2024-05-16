@@ -22,18 +22,7 @@ public:
 
 private:
 public:
-    std::string statement;
-    void spaces();
-    void refactor();
-    std::string strSlice(int index1, int index2);
-    int rightBracket(int index);
-    int eval();
-    calculator(std::string);
-    static std::string brStat(std::string str);
-    static std::string noBrStat(std::string str);
-    static int leftBracket(std::string str);
-    static int rightBracket(std::string str);
-
+    
     static void spaces(std::string& statement);
     static void refactor(std::string& statement);
     static int toInt(std::string str);

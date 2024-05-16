@@ -10,7 +10,7 @@ int main() {
 //        std::cout << "Answer: " << calculator::eval(str) << std::endl;
 //    }
 
-std::string str = "5*(-1-3)";
+std::string str = "6+5*()";
 std::cout << calculator::eval(str);
 
 }
