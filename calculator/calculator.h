@@ -2,7 +2,6 @@
 #define CALCULATOR_CALCULATOR_H
 #include <iostream>
 
-
 struct stringSlice {
     int first;
     int second;
@@ -29,6 +28,7 @@ private:
     static std::string toStr(int num);
     static std::string insert(std::string ins, std::string& str, int first, int second);
 };
+
 
 
 #endif //CALCULATOR_CALCULATOR_H
