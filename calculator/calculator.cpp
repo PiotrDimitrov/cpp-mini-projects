@@ -10,17 +10,43 @@ void calculator::spaces(std::string& statement) {
     statement = temp;
 }
 
-void calculator::refactor(std::string& statement) {
-    std::string allowed = "1234567890-+/^*()%";
+std::string calculator::refactor(std::string& st) {
+    std::string numbers = "1234567890";
+    std::string operators = "-+/^*%";
     std::string temp;
-    for (char st : statement) {
-        bool flag = false;
-        for (char al : allowed) {
-            if (al == st) {flag = true;}
-        }
-        if (flag) {temp = temp + st;}
+    bool invalid = false;
+    if (st[0] == '-') {st[0] = '_';}
+    for (int i = 0; i < st.length(); ++i) {
+        if (in(st[i], numbers)) {
+            temp = temp + st[i];
+        } else if (in(st[i], operators)) {
+            if ((!in(st[i + 1], operators) || st[i-1] == ')') && in(st[i-1], numbers+')') && i != st.length() - 1 && i != 0 ) {
+                temp = temp + st[i];
+            } else invalid = true;
+        } else if (st[i] == '(') {
+            if (st[i + 1] == '-') { st[i + 1] = '_'; }
+            if (!in(st[i + 1], operators) && st[i + 1] != ')') {
+                temp = temp + st[i];
+            } else invalid = true;
+        } else if (st[i] == '_') {
+            if (in(st[i+1], numbers)) {
+                temp = temp + st[i];
+            }  else invalid = true;
+        } else if (st[i] == ')' && i > 0) {
+            if (in(st[i-1], numbers)) {
+                temp = temp + st[i];
+            }  else invalid = true;
+        }  else invalid = true;
     }
-    statement = temp;
+    //if (invalid) {std::cout << "Invalid input!\n";} //TO DO
+    return temp;
+}
+
+bool calculator::in(char c, std::string str){
+    for (auto x : str) {
+        if (x == c) {return true;}
+    }
+    return false;
 }
 
 int calculator::toInt(std::string str) {
@@ -131,7 +157,7 @@ std::string calculator::toStr(int num){
 }
 
 int calculator::eval(std::string statement) {
-    spaces(statement); if (statement[0] == '-') {statement[0] = '_';}
+    statement = refactor(statement);
     while (true) {
         stringSlice ss = brackets(statement);
         if (ss.first == -1 || ss.second == -1) {break;}

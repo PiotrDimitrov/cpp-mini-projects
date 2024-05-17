@@ -18,13 +18,10 @@ struct afterOper {
 class calculator {
 public:
     static int eval(std::string);
-
-
 private:
-public:
-    
+    static bool in(char c, std::string str);
     static void spaces(std::string& statement);
-    static void refactor(std::string& statement);
+    static std::string refactor(std::string& statement);
     static int toInt(std::string str);
     static std::string strSlice(const std::string str, int index1, int index2);
     static stringSlice brackets(std::string str);
