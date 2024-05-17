@@ -16,8 +16,10 @@ The String Calculator processes mathematical expressions provided as strings and
 ## Example
 
 Input: 3 - 8 * 3 + 7 ^ 2 - 1 + 1
+
 Output: 28
 
 Input: (-2-3)*(7+4)/5
+
 Output: -11
 
