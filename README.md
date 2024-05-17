@@ -28,35 +28,15 @@ Ensure you have the following software installed on your system:
 1. Clone the repository to your local machine:
 
     ```sh
-    git clone https://github.com/your-username/your-repo-name.git
-    cd your-repo-name
+    git clone https://github.com/PiotrDimitrov/cpp-mini-projects.git
+    cd cpp-mini-projects
     ```
 
 2. Navigate to the project directory you want to work on:
 
     ```sh
-    cd project-directory
+    cd cpp-mini-projects
     ```
-
-### Usage
-
-To compile and run a project, follow these steps:
-
-1. **Using a Makefile (if available):**
-
-    ```sh
-    make
-    ./project-executable
-    ```
-
-2. **Without a Makefile:**
-
-    ```sh
-    g++ -o project-executable main.cpp
-    ./project-executable
-    ```
-
-*Note: Replace `main.cpp` and `project-executable` with your project's source file and desired executable name.*
 
 ## Contributing
 
