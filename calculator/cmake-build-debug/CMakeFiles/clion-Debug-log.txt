@@ -20,6 +20,6 @@ CMake Deprecation Warning:
 -- Check for working CXX compiler: D:/CLion 2023.3.2/bin/mingw/bin/g++.exe - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Configuring done (28.1s)
--- Generating done (0.1s)
+-- Configuring done (2.2s)
+-- Generating done (0.0s)
 -- Build files have been written to: C:/Users/User/Desktop/CPP/cpp-mini-projects/calculator/cmake-build-debug
