@@ -297,6 +297,7 @@ bigNum bigNum::operator-(int i) {
 }
 
 bigNum bigNum::operator/(const bigNum num) {
+    if (num == 0) {return 0;}
     bigNum counter("0");
     bigNum div1 = *this;
     bigNum div2 = num;
@@ -328,12 +329,17 @@ bigNum bigNum::operator/(int i) {
 }
 
 bigNum bigNum::operator%(const bigNum num) {
-    bigNum counter("0");
+    if (num == 0) {return 0;}
     bigNum div1 = *this;
     bigNum div2 = num;
     div1.positive = div2.positive = true;
     while (div1.positive) {
-        div1 = div1 - div2;
+        int tens = div1.size() - 1 - div2.size();
+        if (tens > 0) {
+            div1 = div1 - div2.addZeros(tens);
+        } else {
+            div1 = div1 - div2;
+        }
     }
     div1 = div1 + div2;
     div1.zeros();
