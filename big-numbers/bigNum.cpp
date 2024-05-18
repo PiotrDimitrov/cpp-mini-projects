@@ -218,7 +218,6 @@ bool bigNum::operator<=(int i) const {
 bigNum bigNum::operator * (const bigNum num) {
     bigNum result("0");
     bigNum temp;
-    if (this->positive != num.positive) {result.positive = false;}
     result.digits.reserve(this->size() + num.size());
     int tens = 0;
     for (int nm : num.digits) {
@@ -237,6 +236,7 @@ bigNum bigNum::operator * (const bigNum num) {
         for (int i = 0; i < tens; i++) {temp.digits.push_back(0);}
     }
     result.zeros();
+    result.positive = (this->positive == num.positive);
     return result;
 }
 
@@ -297,15 +297,24 @@ bigNum bigNum::operator-(int i) {
 }
 
 bigNum bigNum::operator/(const bigNum num) {
+    if (num == 0) {return 0;}
     bigNum counter("0");
-    counter.positive = (this->positive == num.positive);
-    bigNum div = *this;
-    while (div.positive) {
-        div = div - num;
-        counter = counter + "1";
+    bigNum div1 = *this;
+    bigNum div2 = num;
+    div1.positive = div2.positive = true;
+    while (div1.positive) {
+        int tens = div1.size() - 1 - div2.size();
+        if (tens > 0) {
+            div1 = div1 - div2.addZeros(tens);
+            counter = counter + toBN(1).addZeros(tens);
+        } else {
+            div1 = div1 - div2;
+            counter = counter + "1";
+        }
     }
     counter = counter - "1";
     counter.zeros();
+    counter.positive = (this->positive == num.positive);
     return counter;
 }
 
@@ -317,6 +326,58 @@ bigNum bigNum::operator/(std::string str) {
 bigNum bigNum::operator/(int i) {
     bigNum num(i);
     return *this / num;
+}
+
+bigNum bigNum::operator%(const bigNum num) {
+    if (num == 0) {return 0;}
+    bigNum div1 = *this;
+    bigNum div2 = num;
+    div1.positive = div2.positive = true;
+    while (div1.positive) {
+        int tens = div1.size() - 1 - div2.size();
+        if (tens > 0) {
+            div1 = div1 - div2.addZeros(tens);
+        } else {
+            div1 = div1 - div2;
+        }
+    }
+    div1 = div1 + div2;
+    div1.zeros();
+    return div1;
+}
+
+bigNum bigNum::operator%(std::string str) {
+    bigNum num(str);
+    return *this % num;
+}
+
+bigNum bigNum::operator%(int i) {
+    bigNum num(i);
+    return *this % num;
+}
+
+bigNum bigNum::operator^(const bigNum num) {
+    bigNum pow = num;
+    pow.positive = true;
+    if (pow == 0) {
+        bigNum r(1);
+        return r;
+    }
+    if(pow % 2 == 0){
+        return ((*this) * (*this))^(pow / 2);
+    } else {
+        return (*this) * ((*this)^(pow - 1));
+    }
+}
+
+bigNum bigNum::operator^(std::string str) {
+    bigNum num(str);
+    return (*this)^num;
+}
+
+bigNum bigNum::operator^(int i) {
+    bigNum num(i);
+    return (*this)^num;
 }
 
 std::string bigNum::toStr() const{
@@ -349,4 +410,25 @@ void bigNum::zeros() {
         if (this->digits[i] == 0) {this->digits.pop_back();}
         else {break;}
     }
+}
+
+bigNum bigNum::addZeros(int i) {
+    bigNum res;
+    for (int j = 0; j < i; j++){
+        res.digits.push_back(0);
+    }
+    for (int e : this->digits){
+        res.digits.push_back(e);
+    }
+    return res;
+}
+
+bigNum bigNum::toBN(std::string str) {
+    bigNum res(str);
+    return res;
+}
+
+bigNum bigNum::toBN(int i) {
+    bigNum res(i);
+    return res;
 }
