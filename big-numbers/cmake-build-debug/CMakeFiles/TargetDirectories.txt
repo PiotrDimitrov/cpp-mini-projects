@@ -1,3 +1,0 @@
-C:/Users/User/Desktop/CPP/cpp-mini-projects/big-numbers/cmake-build-debug/CMakeFiles/big_numbers.dir
-C:/Users/User/Desktop/CPP/cpp-mini-projects/big-numbers/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/User/Desktop/CPP/cpp-mini-projects/big-numbers/cmake-build-debug/CMakeFiles/rebuild_cache.dir
