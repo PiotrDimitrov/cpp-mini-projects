@@ -1,0 +1,9 @@
+# ninja log v5
+1	898	7380370083276195	CMakeFiles/simpleTimer.dir/main.cpp.obj	ec2d72fff6e29d53
+9	907	7380370083356024	CMakeFiles/simpleTimer.dir/simpleTimer.cpp.obj	3c25ce7d02543a0a
+907	1158	7380370085855633	simpleTimer.exe	63f09dec716cb861
+10	905	7380372209749181	CMakeFiles/simpleTimer.dir/main.cpp.obj	ec2d72fff6e29d53
+3	1231	7380372213006539	CMakeFiles/simpleTimer.dir/simpleTimer.cpp.obj	3c25ce7d02543a0a
+1231	1461	7380372215275592	simpleTimer.exe	63f09dec716cb861
+5	593	7380372367979708	CMakeFiles/simpleTimer.dir/main.cpp.obj	ec2d72fff6e29d53
+593	729	7380372369306126	simpleTimer.exe	63f09dec716cb861
